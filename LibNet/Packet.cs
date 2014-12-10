@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace mognetwork
 {
-    class Packet
+    public class Packet
     {
         private List<byte> datas;
         private int reader = 0;
-        private byte[] formatted;
+        private byte[] formatted = null;
 
         public Packet()
         {
@@ -24,6 +24,8 @@ namespace mognetwork
 
         public void format()
         {
+            if (formatted != null)
+                return;
             formatted = datas.ToArray();
         }
 
@@ -34,6 +36,7 @@ namespace mognetwork
 
         public bool getBool()
         {
+            format();
             bool ret = BitConverter.ToBoolean(formatted, reader);
             reader += sizeof(bool);
             return ret;
@@ -46,8 +49,9 @@ namespace mognetwork
 
         public char getChar()
         {
+            format();
             char ret = BitConverter.ToChar(formatted, reader);
-            reader += sizeof(bool);
+            reader += sizeof(char);
             return ret;
         }
 
@@ -58,6 +62,7 @@ namespace mognetwork
 
         public double getDouble()
         {
+            format();
             double ret = BitConverter.ToDouble(formatted, reader);
             reader += sizeof(double);
             return ret;
@@ -70,6 +75,7 @@ namespace mognetwork
 
         public Int16 getInt16()
         {
+            format();
             Int16 ret = BitConverter.ToInt16(formatted, reader);
             reader += sizeof(Int16);
             return ret;
@@ -82,6 +88,7 @@ namespace mognetwork
 
         public Int32 getInt32()
         {
+            format();
             Int32 ret = BitConverter.ToInt32(formatted, reader);
             reader += sizeof(Int32);
             return ret;
@@ -94,6 +101,7 @@ namespace mognetwork
 
         public Int64 getInt64()
         {
+            format();
             Int64 ret = BitConverter.ToInt64(formatted, reader);
             reader += sizeof(Int64);
             return ret;
@@ -106,6 +114,7 @@ namespace mognetwork
 
         public float getFloat()
         {
+            format();
             float ret = BitConverter.ToSingle(formatted, reader);
             reader += sizeof(float);
             return ret;

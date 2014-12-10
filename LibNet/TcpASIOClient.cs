@@ -37,9 +37,7 @@ namespace mognetwork
             List<byte> toSend = new List<byte>();
 
             toSend.AddRange(BitConverter.GetBytes((Int64)datas.Count));
-            Console.WriteLine("BUFFER: '" + System.Text.Encoding.ASCII.GetString(toSend.ToArray()) + "'");
             toSend.AddRange(datas);
-            Console.WriteLine("BUFFER: '" + System.Text.Encoding.ASCII.GetString(toSend.ToArray()) + "'");
             socket.Send(toSend.ToArray(), 0, toSend.Count(), SocketFlags.None);
         }
 
@@ -50,15 +48,11 @@ namespace mognetwork
             List<byte> toRet = new List<byte>();
             socket.Receive(buffer, 0, sizeof(Int64), SocketFlags.None);
             Int64 size = BitConverter.ToInt64(buffer, 0);
-            Console.WriteLine("Received size " + size);
             while (readed < size)
             {
                 Int64 toRead = Math.Min(size - readed, 1024);
                 buffer = new byte[toRead];
-                Console.WriteLine("Reading from " + readed + " to " + toRead);
                 readed += socket.Receive(buffer, 0, (int)toRead, SocketFlags.None);
-                Console.WriteLine("BUFFER: '" + System.Text.Encoding.ASCII.GetString(buffer) + "'");
-                Console.WriteLine("Readed " + readed);
                 toRet.AddRange(buffer);
             }
             return (toRet);
