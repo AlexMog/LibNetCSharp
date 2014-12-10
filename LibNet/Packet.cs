@@ -31,7 +31,7 @@ namespace mognetwork
 
         public void addBool(bool b)
         {
-            datas.AddRange(new List<byte>(BitConverter.GetBytes(b)));
+            datas.AddRange(BitConverter.GetBytes(b));
         }
 
         public bool getBool()
@@ -44,20 +44,20 @@ namespace mognetwork
 
         public void addChar(char c)
         {
-            datas.AddRange(new List<byte>(BitConverter.GetBytes(c)));
+            datas.Add(Convert.ToByte(c));
         }
 
         public char getChar()
         {
             format();
-            char ret = BitConverter.ToChar(formatted, reader);
-            reader += sizeof(char);
+            char ret = (char)formatted[reader];
+            reader += 1;
             return ret;
         }
 
         public void addDouble(double d)
         {
-            datas.AddRange(new List<byte>(BitConverter.GetBytes(d)));
+            datas.AddRange(BitConverter.GetBytes(d));
         }
 
         public double getDouble()
@@ -70,7 +70,7 @@ namespace mognetwork
 
         public void addInt16(Int16 i)
         {
-            datas.AddRange(new List<byte>(BitConverter.GetBytes(i)));
+            datas.AddRange(BitConverter.GetBytes(i));
         }
 
         public Int16 getInt16()
@@ -83,7 +83,7 @@ namespace mognetwork
 
         public void addInt32(Int32 i)
         {
-            datas.AddRange(new List<byte>(BitConverter.GetBytes(i)));
+            datas.AddRange(BitConverter.GetBytes(i));
         }
 
         public Int32 getInt32()
@@ -96,7 +96,7 @@ namespace mognetwork
 
         public void addInt64(Int64 i)
         {
-            datas.AddRange(new List<byte>(BitConverter.GetBytes(i)));
+            datas.AddRange(BitConverter.GetBytes(i));
         }
 
         public Int64 getInt64()
@@ -109,7 +109,7 @@ namespace mognetwork
 
         public void addFloat(float f)
         {
-            datas.AddRange(new List<byte>(BitConverter.GetBytes(f)));
+            datas.AddRange(BitConverter.GetBytes(f));
         }
 
         public float getFloat()
@@ -123,6 +123,22 @@ namespace mognetwork
         public List<byte> getDatas()
         {
             return datas;
+        }
+
+        public void addString(String s)
+        {
+            this.addInt32(Convert.ToInt32(s.Length));
+            datas.AddRange(Encoding.ASCII.GetBytes(s));
+        }
+
+        public String getString()
+        {
+            format();
+            Int32 size = getInt32();
+            String ret = "";
+            for (int i = 0; i < size; ++i)
+                ret += getChar();
+            return ret;
         }
     }
 }

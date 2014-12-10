@@ -41,6 +41,11 @@ namespace mognetwork
             socket.Send(toSend.ToArray(), 0, toSend.Count(), SocketFlags.None);
         }
 
+        public void sendDatas(Packet packet)
+        {
+            sendDatas(packet.getDatas());
+        }
+
         public List<byte> receiveDatas()
         {
             byte[] buffer = new byte[sizeof(Int64)];
