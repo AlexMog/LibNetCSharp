@@ -39,9 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ListenerHandler.cs" />
     <Compile Include="Packet.cs" />
-    <Compile Include="TcpASIOClient.cs" />
+    <Compile Include="TcpSocket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TcpThreadListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
