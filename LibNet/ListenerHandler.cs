@@ -8,6 +8,6 @@ namespace mognetwork
 {
     interface ListenerHandler
     {
-        public void onMessageReceived(List<byte> datas);
+        void onMessageReceived(List<byte> datas);
     }
 }
