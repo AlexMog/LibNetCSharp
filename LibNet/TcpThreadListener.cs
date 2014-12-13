@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace mognetwork
 {
-    class TcpThreadListener
+    public class TcpThreadListener
     {
         private Thread thread;
         private ListenerHandler handler;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace mognetwork
 {
-    interface ListenerHandler
+    public interface ListenerHandler
     {
         void onMessageReceived(List<byte> datas);
     }
